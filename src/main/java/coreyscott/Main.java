@@ -9,8 +9,8 @@ public class Main {
         List<MaintenanceRequest> requests = new ArrayList<>();
 
         requests.add(new MaintenanceRequest("Greg Brady", "102A", "Electrical", 5));
-        requests.add(new MaintenanceRequest("Oliver Harris", "203B", "HVAC", 4));
-        requests.add(new MaintenanceRequest("Jackie Lee", "302C", "Plumbing", 3));
+        requests.add(new MaintenanceRequest("Walter White", "203B", "HVAC", 4));
+        requests.add(new MaintenanceRequest("Franklin Saint", "302C", "Plumbing", 3));
 
         for (MaintenanceRequest request : requests) {
             System.out.println(request);
@@ -56,7 +56,7 @@ public class Main {
                 System.out.println("WARNING: High severity electrical issue!");
             }
 
-            if (severity == 5) {
+            if (severity >= 3) {
                 System.out.println("Dispatch an available tech immediately!");
             }
 

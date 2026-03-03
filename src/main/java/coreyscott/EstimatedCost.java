@@ -16,10 +16,10 @@ public class EstimatedCost {
                 labor = 75; parts = 40; emergencyFee = 0;
                 break;
             case 3:
-                labor = 100; parts = 75; emergencyFee = 0;
+                labor = 100; parts = 75; emergencyFee = 50;
                 break;
             case 4:
-                labor = 150; parts = 125; emergencyFee = 50;
+                labor = 150; parts = 125; emergencyFee = 75;
                 break;
             case 5:
                 labor = 250; parts = 200; emergencyFee = 100;
