@@ -7,21 +7,25 @@ public class MaintenanceRequest {
     private String issueType;
     private int issueSeverity;
     private String status;
+    private EstimatedCost estimatedCost;
 
     public MaintenanceRequest() {
+        this.tenantName = "";
+        this.apartmentNumber = "";
+        this.issueType = "";
+        this.issueSeverity = 1;
         this.status = "NEW";
+        this.estimatedCost = new EstimatedCost(1);
     }
 
     public MaintenanceRequest(String tenantName, String apartmentNumber, String issueType, int issueSeverity) {
         this.tenantName = tenantName;
         this.apartmentNumber = apartmentNumber;
         this.issueType = issueType;
-        this.issueSeverity = issueSeverity;
+        setIssueSeverity(issueSeverity);
         this.status = "NEW";
-        this.estimatedCost = new EstimatedCost(issueSeverity);
     }
 
-    //getters
     public String getTenantName() {
         return tenantName;
     }
@@ -37,18 +41,19 @@ public class MaintenanceRequest {
     public int getIssueSeverity() {
         return issueSeverity;
     }
+
     public String getEstimatedCostBreakdown() {
         return estimatedCost.getBreakdown();
     }
+
     public double getEstimatedTotalCost() {
         return estimatedCost.getTotal();
-        }
+    }
 
     public String getStatus() {
         return status;
     }
 
-    //setters
     public void setTenantName(String tenantName) {
         this.tenantName = tenantName;
     }
@@ -62,27 +67,31 @@ public class MaintenanceRequest {
     }
 
     public void setIssueSeverity(int issueSeverity) {
-        this.issueSeverity = issueSeverity;
+        if (issueSeverity >= 1 && issueSeverity <= 5) {
+            this.issueSeverity = issueSeverity;
+            this.estimatedCost = new EstimatedCost(issueSeverity);
+        } else {
+            System.out.println("Invalid severity. Defaulting to 1.");
+            this.issueSeverity = 1;
+            this.estimatedCost = new EstimatedCost(1);
+        }
     }
 
     public void setStatus(String status) {
-        if (status.equals("NEW") || status.equals("IN PROGRESS") || status.equals("COMPLETE")) {
+        if (status.equals("NEW") || status.equals("IN_PROGRESS") || status.equals("DONE")) {
             this.status = status;
-            } else {
-                System.out.println("INVALID STATUS UPDATE");
-            }
+        } else {
+            System.out.println("INVALID STATUS UPDATE");
         }
-
-        @Override
-        public String toString () {
-            return "Tenant: " + tenantName +
-                    " | Apt: " + apartmentNumber +
-                    " | Issue: " + issueType +
-                    " | Severity: " + issueSeverity +
-                    " | Status: " + status;
-        }
-
-    private EstimatedCost estimatedCost;
-
     }
 
+    @Override
+    public String toString() {
+        return "Tenant: " + tenantName +
+                " | Apt: " + apartmentNumber +
+                " | Issue: " + issueType +
+                " | Severity: " + issueSeverity +
+                " | Status: " + status +
+                " | Estimated Total: $" + getEstimatedTotalCost();
+    }
+}
